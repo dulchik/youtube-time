@@ -23,19 +23,25 @@ def main():
     api_service_name = "youtube"
     api_version = "v3"
     client_secrets_file = os.getenv("CLIENT_SECRET")
+    API_KEY = os.getenv("API_KEY")
 
     # Get credentials and create an API client
     flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
         client_secrets_file, scopes)
     credentials = flow.run_local_server()
-    youtube = googleapiclient.discovery.build(
-        api_service_name, api_version, credentials=credentials)
+    youtube_auth = googleapiclient.discovery.build(
+        api_service_name, api_version, credentials=credentials
+    )
+
+    youtube_key = googleapiclient.discovery.build(
+        api_service_name, api_version, developerKey=API_KEY
+    )
 
     video_ids = []
     next_page_token = None
 
     while True:
-        request = youtube.playlistItems().list(
+        request = youtube_auth.playlistItems().list(
             part="contentDetails",
             maxResults=50,
             playlistId="PLXZBc7tmmYhdP6O8PJH1yZ6wepAAKCNrD",
@@ -51,6 +57,20 @@ def main():
             break
 
     print(f"Total video IDs fetched: {len(video_ids)}")
+    
+    durations = []
+
+    for video_id in video_ids:
+        request = youtube_key.videos().list(
+            part="contentDetails",
+            id=video_id
+        )
+        response = request.execute()
+
+        for item in response["items"]:
+            durations.append(item["contentDetails"]["duration"])
+
+    print(durations)
 
 if __name__ == "__main__":
     main()
