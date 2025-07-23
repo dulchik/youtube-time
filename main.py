@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv
 import isodate
 import googleapiclient.discovery
@@ -6,6 +7,14 @@ import googleapiclient.discovery
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
+
+def extract_playlist_id(url):
+    match = re.search(r"(?:list=)([a-zA-Z0-9_-]+)", url)
+    if match:
+        return match.group(1)
+    else:
+        raise ValueError("Invalid YouTube playlist URL.")
+
 
 def main():
     api_service_name = "youtube"
@@ -16,7 +25,9 @@ def main():
         api_service_name, api_version, developerKey=API_KEY
     )
     
-    playlist_id = "PLXZBc7tmmYhdP6O8PJH1yZ6wepAAKCNrD"
+    url = input("Paste your Youtube playlist URL: ")
+
+    playlist_id = extract_playlist_id(url)
     video_ids = []
     next_page_token = None
 
