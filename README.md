@@ -14,4 +14,5 @@ API_KEY=YOUR_API_KEY
 
 You're all set and done
 Now run the script with ```python3 main.py```
+
 Paste the link to your playlist and it will spit the results right in your face 
