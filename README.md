@@ -8,7 +8,10 @@ All you need is a Youtube Data v3 API key that you can create on Google [Develop
 
 Create a .env file and create a variable named API_KEY.
 Your .env file should look like this:
-
+```
 API_KEY=YOUR_API_KEY
+```
 
 You're all set and done
+Now run the script with ```python3 main.py```
+
