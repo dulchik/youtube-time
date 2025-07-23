@@ -6,6 +6,7 @@
 
 import os
 from dotenv import load_dotenv
+import isodate
 
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
@@ -70,7 +71,13 @@ def main():
         for item in response["items"]:
             durations.append(item["contentDetails"]["duration"])
 
-    print(durations)
+    total_seconds = sum(isodate.parse_duration(d).total_seconds() for d in durations)
+
+    hours = int(total_seconds // 3600)
+    minutes = int((total_seconds % 3600) // 60)
+    seconds = int(total_seconds % 60)
+
+    print(f"{hours:02}:{minutes:02}:{seconds:02}")
 
 if __name__ == "__main__":
     main()
