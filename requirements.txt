@@ -1,8 +1,4 @@
-google-auth==2.29.0
-google-auth-oauthlib==1.2.0
-google-auth-httplib2==0.2.0
-google-api-python-client==2.113.0
-isodate==0.6.1
-requests==2.31.0
-pytz==2025.2
+isodate==0.7.2
 python-dotenv==1.1.1
+google-api-python-client==2.176.0
+
