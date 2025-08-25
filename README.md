@@ -6,6 +6,11 @@ The playlist should be "public" or "unlisted" (private playlists would require o
 
 All you need is a Youtube Data v3 API key that you can create on [Google Developer Console](https://console.cloud.google.com/)
 
+Install the requirements by typing
+```
+pip install -r requirements.txt
+```
+
 Create a .env file and create a variable named API_KEY.
 Your .env file should look like this:
 ```
